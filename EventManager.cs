@@ -33,7 +33,7 @@ namespace Game
         /// <param name = "id">当前节点id</param>
         /// <param name="eventName">事件名</param>
         /// <param name"Action">注册监听的函数</param>
-        public static void addListening(string id, string eventName, Action<ArrayList> action)
+        public static void AddListening(string id, string eventName, Action<ArrayList> action)
         {
 
             EventData eventData = null;
@@ -97,8 +97,7 @@ namespace Game
         /// </summary>
         /// <param name = "id">当前节点id</param>
         /// <param name="eventName">事件名</param>
-        /// <param name"Action">注册监听的函数</param>
-        public static void removeListening(string id, string eventName, Action<ArrayList> action)
+        public static void RemoveListening(string id, string eventName)
         {
             EventData eventData = null;
 
