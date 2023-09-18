@@ -38,4 +38,4 @@ EventManager.RemoveListening("caller_1","event_name");
 EventManager.RemoveAll("caller_1");
 ```
 
-详细说明见 [Unity自定义事件系统](https://busyo.buzz/article/Unity/%E5%B7%A5%E5%85%B7/Unity%E8%87%AA%E5%AE%9A%E4%B9%89%E4%BA%8B%E4%BB%B6%E7%B3%BB%E7%BB%9F/)
+详细说明见 [Unity自定义事件系统](https://busyo.buzz/article/2474251272a9/)
