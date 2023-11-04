@@ -232,25 +232,36 @@ namespace Game
                         _stickyDic.Add(eventName, res);
                         _stickyArrayFlag.Add(eventName, arrayFlag);
                     }
-                    else
-                    {
-                        _stickyDic[eventName] = res;
-                        _stickyArrayFlag[eventName] = arrayFlag;
-                    }
+                    //else
+                    //{
+                    //    _stickyDic[eventName] = res;
+                    //    _stickyArrayFlag[eventName] = arrayFlag;
+                    //}
                     res.Add(obj);
 
                 }
                 else
                 {
                     arrayFlag = false;
-                    _stickyDic.Add(eventName, obj);
+                    if (_stickyDic.ContainsKey(eventName))
+                    {
+                        _stickyDic[eventName] = obj;
+                    }
+                    else
+                    {
+                        _stickyDic.Add(eventName, obj);
+                    }
+
                     if (arrayFlag)
                     {
                         _stickyArrayFlag[eventName] = arrayFlag;
                     }
                     else
                     {
-                        _stickyArrayFlag.Add(eventName, arrayFlag);
+                        if (!_stickyArrayFlag.ContainsKey(eventName))
+                        {
+                            _stickyArrayFlag.Add(eventName, arrayFlag);
+                        }
                     }
                 }
             }
