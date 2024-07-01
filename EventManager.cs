@@ -10,12 +10,14 @@ namespace Game
         /// <summary>
         /// 事件字典
         /// </summary>
-        private static Dictionary<string, Dictionary<string, EventData>> _eventDictionary = new Dictionary<string, Dictionary<string, EventData>>();
+        private static Dictionary<string, Dictionary<string, EventData>> _eventDictionary =
+            new Dictionary<string, Dictionary<string, EventData>>();
 
         /// <summary>
         /// 节点字典
         /// </summary>
-        private static Dictionary<string, Dictionary<string, bool>> _eventNode = new Dictionary<string, Dictionary<string, bool>>();
+        private static Dictionary<string, Dictionary<string, bool>> _eventNode =
+            new Dictionary<string, Dictionary<string, bool>>();
 
         /// <summary>
         /// 粘性通知字典
@@ -55,15 +57,11 @@ namespace Game
                 eventDic.Add(id, eventData);
             }
 
-            if (_eventNode.ContainsKey(id))
-            {
-                // _eventNode[id][eventName] = true;
-            }
-            else
+            if (!_eventNode.ContainsKey(id) || !_eventNode[id].ContainsKey(eventName))
             {
                 Dictionary<string, bool> dicNode = new Dictionary<string, bool>
                 {
-                    { id, true }
+                    { eventName, true }
                 };
                 _eventNode.Add(id, dicNode);
             }
@@ -86,6 +84,7 @@ namespace Game
                 {
                     TriggerEvent(eventName, stickyArray);
                 }
+
                 //完成通知，移除数据
                 _stickyArrayFlag.Remove(eventName);
                 _stickyDic.Remove(eventName);
@@ -119,6 +118,7 @@ namespace Game
                     {
                         _eventDictionary.Remove(eventName);
                     }
+
                     //如果有事件存在，则一定在对应的node字典中存在
                     _eventNode[id].Remove(eventName);
 
@@ -159,6 +159,7 @@ namespace Game
                         }
                     }
                 }
+
                 //移除节点字典中的对应节点数据
                 _eventNode.Remove(id);
             }
@@ -180,10 +181,9 @@ namespace Game
 
                 if (eventDic != null)
                 {
-                    EventData triggerEvent = null;
                     foreach (var data in eventDic)
                     {
-                        triggerEvent = data.Value;
+                        var triggerEvent = data.Value;
                         triggerEvent.Triggered(obj);
                     }
                 }
@@ -232,6 +232,7 @@ namespace Game
                         _stickyDic.Add(eventName, res);
                         _stickyArrayFlag.Add(eventName, arrayFlag);
                     }
+
                     //else
                     //{
                     //    _stickyDic[eventName] = res;
