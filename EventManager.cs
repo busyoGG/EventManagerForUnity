@@ -57,13 +57,17 @@ namespace Game
                 eventDic.Add(id, eventData);
             }
 
-            if (!_eventNode.ContainsKey(id) || !_eventNode[id].ContainsKey(eventName))
+            if (!_eventNode.ContainsKey(id))
             {
                 Dictionary<string, bool> dicNode = new Dictionary<string, bool>
                 {
                     { eventName, true }
                 };
                 _eventNode.Add(id, dicNode);
+            }
+            else if (!_eventNode[id].ContainsKey(eventName))
+            {
+                _eventNode[id][eventName] = true;
             }
 
             //触发粘性通知
