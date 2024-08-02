@@ -27,17 +27,17 @@ namespace EventToolKit
         /// <summary>
         /// 节点导航字典，存储该节点的所有事件
         /// </summary>
-        private static Dictionary<string, HashSet<(Enum key, int index)>> _nodeNav = new();
+        private static Dictionary<string, HashSet<(string key, int index)>> _nodeNav = new();
 
         /// <summary>
         /// 事件字典
         /// </summary>
-        private static Dictionary<Enum, Dictionary<int, EventData>> _events = new();
+        private static Dictionary<string, Dictionary<int, EventData>> _events = new();
 
         /// <summary>
         /// 粘性通知字典
         /// </summary>
-        private static Dictionary<Enum, List<Action>> _stickyNotify = new();
+        private static Dictionary<string, List<Action>> _stickyNotify = new();
 
         /// <summary>
         /// 事件索引
@@ -51,7 +51,7 @@ namespace EventToolKit
         /// <param name="key">事件名</param>
         /// <param name="evt">事件函数</param>
         /// <returns></returns>
-        public static EventData AddEvent(string id, Enum key, Action evt)
+        public static EventData AddEvent(string id, string key, Action evt)
         {
             int index = _eventIndex++;
 
@@ -72,7 +72,7 @@ namespace EventToolKit
 
             if (!_nodeNav.ContainsKey(id))
             {
-                _nodeNav.Add(id, new HashSet<(Enum e, int index)>());
+                _nodeNav.Add(id, new HashSet<(string e, int index)>());
             }
 
             _nodeNav[id].Add((key, index));
@@ -100,7 +100,7 @@ namespace EventToolKit
         /// <param name="evt">事件函数</param>
         /// <typeparam name="T"></typeparam>
         /// <returns></returns>
-        public static EventData AddEvent<T>(string id, Enum key, Action<T> evt)
+        public static EventData AddEvent<T>(string id, string key, Action<T> evt)
         {
             int index = _eventIndex++;
 
@@ -121,7 +121,7 @@ namespace EventToolKit
 
             if (!_nodeNav.ContainsKey(id))
             {
-                _nodeNav.Add(id, new HashSet<(Enum e, int index)>());
+                _nodeNav.Add(id, new HashSet<(string e, int index)>());
             }
 
             _nodeNav[id].Add((key, index));
@@ -146,8 +146,7 @@ namespace EventToolKit
         /// </summary>
         /// <param name="key">事件名</param>
         /// <param name="sticky">粘性通知类型</param>
-        /// <typeparam name="TEnum"></typeparam>
-        public static void SendEvent<TEnum>(TEnum key, Sticky sticky = Sticky.None) where TEnum : Enum
+        public static void SendEvent(string key, Sticky sticky = Sticky.None)
         {
             _events.TryGetValue(key, out var arr);
 
@@ -211,8 +210,7 @@ namespace EventToolKit
         /// <param name="sticky">粘性通知类型</param>
         /// <typeparam name="TEnum"></typeparam>
         /// <typeparam name="T"></typeparam>
-        public static void SendEvent<TEnum, T>(TEnum key, T data, Sticky sticky = Sticky.None)
-            where TEnum : Enum
+        public static void SendEvent<T>(string key, T data, Sticky sticky = Sticky.None)
         {
             _events.TryGetValue(key, out var arr);
 
